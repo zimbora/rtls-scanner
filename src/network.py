@@ -52,7 +52,7 @@ class networkHTTP:
              print("Error on query")
              return;
 
-           return response['Result']['Floor_id']
+           return response['Result']
        except requests.exceptions.Timeout:
          # Maybe set up for a retry, or continue in a retry loop
          print("Couldn't reach api >> timeout >> ",URL)
@@ -80,7 +80,7 @@ class networkHTTP:
       }
 
       URL = DOMAIN + "map/"+str(floor_id)+"/data/nodes/info"
-      print(data)
+      
       try:
           # update coefs for respective group_id
           r = requests.put(url = URL, headers = HEADERS, data = json.dumps(data))

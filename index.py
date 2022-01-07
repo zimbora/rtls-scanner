@@ -1,3 +1,4 @@
+import time
 import signal
 import sys
 from scapy.all import *
@@ -5,6 +6,8 @@ import subprocess
 from src.network import networkHTTP
 
 http = networkHTTP()
+
+device = {}
 
 def signal_handler(sig, frame):
     print('You pressed Ctrl+C!')
@@ -39,9 +42,22 @@ while(True):
     map_id = http.getMap(router_mac,ssid)
     print("map_id: ",map_id)
 
-    ans,unans = arping(mask+"1/24", verbose=0)
-    for s,r in ans:
-        mac = r[Ether].src
-        ip = s[ARP].pdst
-        http.updateUserMapInfo(map_id,ip,mac,None)
-        print("{} {}".format(ip,mac))
+    if map_id != None :
+        ans,unans = arping(mask+"1/24", verbose=0)
+        for s,r in ans:
+            mac = r[Ether].src
+            ip = s[ARP].pdst
+
+            print("{} {}".format(ip,mac))
+            if ip in device and device[ip] == mac:
+                print("mac: {} already mapped".format(device[ip]))
+                continue
+
+            if ip in device:
+                print("mac: {} not match {}".format(mac,device[ip]))
+            else:
+                print("mac: {} not found".format(mac))
+            device[ip] = mac
+            http.updateUserMapInfo(map_id,ip,mac,None)
+    else:
+        time.sleep(30)
