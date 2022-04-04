@@ -1,4 +1,7 @@
-# rtls-scanner
+
+# Network Scanner
+
+  Scan network devices and send info to server
 
 ## run
   >> sudo python3 index.py

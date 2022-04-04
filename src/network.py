@@ -1,6 +1,3 @@
-
-
-
 # importing the requests library
 import requests
 import json
@@ -52,7 +49,7 @@ class networkHTTP:
              print("Error on query")
              return;
 
-           return response['Result']['Floor_id']
+           return response['Result']
        except requests.exceptions.Timeout:
          # Maybe set up for a retry, or continue in a retry loop
          print("Couldn't reach api >> timeout >> ",URL)

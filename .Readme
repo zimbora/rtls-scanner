@@ -1,6 +1,0 @@
-
-# Network Scanner
-
-## Scan network devices and send info to server
-
->> sudo python3 index.py

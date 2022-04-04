@@ -4,7 +4,9 @@ from scapy.all import *
 import os
 import json
 
-my_ip = socket.gethostbyname(socket.gethostname())
+interfaces = [_if for _if in get_if_list() if _if not in ['lo', 'docker0']]
+addresses = [_addr for _addr in [ get_if_addr(_if) for _if in interfaces ] if _addr not in ['0.0.0.0', '127.0.1.1', '127.0.0.1']]
+my_ip = addresses[0]
 index = my_ip.rfind('.');
 mask = my_ip[0:index+1]
 
