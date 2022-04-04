@@ -77,7 +77,7 @@ class networkHTTP:
       }
 
       URL = DOMAIN + "map/"+str(floor_id)+"/data/nodes/info"
-      print(data)
+      
       try:
           # update coefs for respective group_id
           r = requests.put(url = URL, headers = HEADERS, data = json.dumps(data))
