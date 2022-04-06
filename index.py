@@ -20,6 +20,8 @@ def Check_connected_ap():
     return out.decode('ascii').replace('\n','')
 
 signal.signal(signal.SIGINT, signal_handler)
+map_id = None
+
 while(True):
     # get submask net
     interfaces = [_if for _if in get_if_list() if _if not in ['lo', 'docker0']]
@@ -41,9 +43,6 @@ while(True):
     #ssid = "Vodafone-rocks"
     print("ssid:",ssid)
 
-    map_id = http.getMap(router_mac,ssid)
-    print("map_id: ",map_id)
-
     if map_id != None :
         ans,unans = arping(mask+"1/24", verbose=0)
         for s,r in ans:
@@ -63,3 +62,5 @@ while(True):
             http.updateUserMapInfo(map_id,ip,mac,None)
     else:
         time.sleep(30)
+        map_id = http.getMap(router_mac,ssid)
+        print("map_id: ",map_id)
