@@ -2,11 +2,12 @@
 # How to run your docker program
 
 x. Install docker
- (link)[https://docs.docker.com/engine/install/]
- apt-get install docker
+ [link](https://docs.docker.com/engine/install/)
+
+ >> apt-get install docker
 
 x. get image
-  docker pull zimbora/rtls-scanner-xx
+  >> docker pull zimbora/rtls-scanner-xx
 
   xx can be:
     - armv7
