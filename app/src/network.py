@@ -5,7 +5,7 @@ import json
 
 
 DOMAIN = "https://my.dev.inloc.cloud/api/";
-TOKEN = "zxc"; # edit it
+TOKEN = "";
 
 #config = configuration()
 #print("domain: "+config.domain())
@@ -18,6 +18,47 @@ class networkHTTP:
 
   def __init__ (self):
       print("http class started")
+
+  # updated v0.1.2
+  def getToken(self):
+     # defining a params dict for the parameters to be sent to the API
+     HEADERS = {}
+
+     PARAMS = {}
+
+     URL = "http://localhost:20080/api/token"
+
+     try:
+         # sending get request and saving the response as response object
+         r = requests.get(url = URL, headers = HEADERS, params = PARAMS)
+
+         if not r:
+             print('An error has occurred: ',r.reason)
+             print(r.raise_for_status())
+             return False
+
+         # extracting data in json format
+         response = r.json()
+
+         if response['Error']:
+           print("Error on query")
+           return False
+
+         TOKEN = response['Result']
+         return TOKEN != None
+     except requests.exceptions.Timeout:
+       # Maybe set up for a retry, or continue in a retry loop
+       print("Couldn't reach api >> timeout >> ",URL)
+       return False
+     except requests.exceptions.TooManyRedirects:
+       # Tell the user their URL was bad and try a different one
+       print("Couldn't reach api >> too many redirects >> ",URL)
+       return False
+     except requests.exceptions.RequestException as e:
+       # catastrophic error. bail.
+       print("Couldn't reach api >> ",URL)
+       print("Maybe is unavailable or the url is wrong")
+       return False
 
   # updated v0.1.1
   def getMap(self,router_mac,ssid):
@@ -60,7 +101,6 @@ class networkHTTP:
          # catastrophic error. bail.
          print("Couldn't reach api >> ",URL)
          print("Maybe is unavailable or the url is wrong")
-         raise SystemExit(e)
 
   # updated v0.1.1
   def updateUserMapInfo(self,floor_id,ip,mac,tag):
@@ -77,7 +117,7 @@ class networkHTTP:
       }
 
       URL = DOMAIN + "map/"+str(floor_id)+"/data/nodes/info"
-      
+
       try:
           # update coefs for respective group_id
           r = requests.put(url = URL, headers = HEADERS, data = json.dumps(data))

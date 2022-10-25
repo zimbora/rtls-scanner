@@ -65,6 +65,8 @@ while(True):
             device[ip] = mac
             http.updateUserMapInfo(map_id,ip,mac,None)
     else:
+        if http.getToken():
+            map_id = http.getMap(router_mac,ssid)
+            print("map_id: ",map_id)
+        else: print("api token not available")
         time.sleep(30)
-        map_id = http.getMap(router_mac,ssid)
-        print("map_id: ",map_id)

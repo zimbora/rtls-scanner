@@ -4,7 +4,7 @@
 x. Install docker
  [link](https://docs.docker.com/engine/install/)
 
- >> apt-get install docker
+ >> apt-get install docker.io
 
 x. get image
   >> docker pull zimbora/rtls-scanner-xx
@@ -40,3 +40,6 @@ x. add the following commands
       --name rtls-scanner \
       -td zimbora/rtls-scanner-armv7
     docker logs -f rtls-scanner
+
+x. run container
+>> ./docker_run.sh
