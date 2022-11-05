@@ -5,17 +5,16 @@ import json
 
 
 DOMAIN = "https://my.dev.inloc.cloud/api/";
-TOKEN = "";
 
 #config = configuration()
 #print("domain: "+config.domain())
 
 #DOMAIN = config.domain()
-#TOKEN = config.token()
 
 class networkHTTP:
   """ Class to obtain data from cloud"""
 
+  TOKEN = "";
   def __init__ (self):
       print("http class started")
 
@@ -44,8 +43,8 @@ class networkHTTP:
            print("Error on query")
            return False
 
-         TOKEN = response['Result']
-         return TOKEN != None
+         self.TOKEN = response['Result']
+         return self.TOKEN != None
      except requests.exceptions.Timeout:
        # Maybe set up for a retry, or continue in a retry loop
        print("Couldn't reach api >> timeout >> ",URL)
@@ -64,7 +63,7 @@ class networkHTTP:
   def getMap(self,router_mac,ssid):
        # defining a params dict for the parameters to be sent to the API
        HEADERS = {
-         'token':TOKEN,
+         'controllertoken':self.TOKEN,
        }
 
        PARAMS = {
@@ -107,7 +106,7 @@ class networkHTTP:
 
       # defining a params dict for the parameters to be sent to the API
       HEADERS = {
-        'token':TOKEN,
+        'controllertoken':self.TOKEN,
         "Content-Type": "application/json"
       }
       data = {
