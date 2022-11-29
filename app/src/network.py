@@ -62,6 +62,7 @@ class networkHTTP:
   # updated v0.1.1
   def getMap(self,router_mac,ssid):
        # defining a params dict for the parameters to be sent to the API
+
        HEADERS = {
          'controllertoken':self.TOKEN,
        }

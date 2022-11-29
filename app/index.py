@@ -42,7 +42,7 @@ while(True):
     index = response.rfind(filter)+len(filter);
     last_ssid = ssid;
     ssid = response[index+1:len(response)-1]
-    if(ssid != last_ssid):
+    if(ssid != last_ssid and map_id != None):
         map_id = http.getMap(router_mac,ssid)
 
     print("ssid:",ssid)

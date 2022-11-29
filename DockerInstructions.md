@@ -37,6 +37,7 @@ x. add the following commands
     docker run --privileged \
       --volume /var/run/dbus:/var/run/dbus  \
       --restart unless-stopped \
+      --network="host" \
       --name rtls-scanner \
       -td zimbora/rtls-scanner-armv7
     docker logs -f rtls-scanner

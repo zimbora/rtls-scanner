@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.4.2
+VERSION=0.4.3
 #local
 #docker build --force-rm -t rtls-controller:$VERSION -f Dockerfile .
 
