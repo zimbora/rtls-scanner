@@ -3,7 +3,7 @@ WORKDIR /opt
 COPY ./app/requirements /opt/requirements
 RUN \
   apt update && apt upgrade -y && \
-	apt install --no-install-recommends -y nano network-manager wireless-tools tcpdump fping && \
+	apt install --no-install-recommends -y nano wireless-tools tcpdump fping && \
 	python3 -m pip install --upgrade pip wheel && \
 	apt autoremove -y && apt clean && \
 	pip3 install -r ./requirements/requirements.txt

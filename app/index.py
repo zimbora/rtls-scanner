@@ -6,6 +6,8 @@ import subprocess
 from src.network import networkHTTP
 import platform
 
+print("Starting scanner service")
+
 # Get the operating system name
 os_name = platform.system()
 ssid = ""
